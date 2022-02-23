@@ -5,4 +5,4 @@ echo '<html><body><h1>Hello World!</h1></body></html>' > src//newsite_assets/ass
 cat src//newsite_assets/assets/index.html
 dfx start  
 dfx deploy ##部署 创建canister
-dfx deploy --network ic ##主网？
+
