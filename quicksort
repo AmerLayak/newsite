@@ -1,0 +1,51 @@
+import D "mo:base/Debug";
+import Nat "mo:base/Nat";
+import Array "mo:base/Array";
+import Int "mo:base/Int";
+
+
+actor{
+    //快排函数
+    func quicksort(a:[var Int]){
+        qs(a,0,a.size()-1);
+    };
+    func qs(a : [var Int], low : Int, high : Int){
+        if (low >= high){
+            return;
+        };
+        var i = low : Int;
+        var j = high : Int;
+        var t = a[Int.abs(low)];
+        while(i != j){
+            while(i < j and t <= a[Int.abs(j)]){
+                j := j - 1;
+            };
+            while(i < j and a[Int.abs(i)] <= t){
+                i := i + 1;
+            };
+            if (i < j){
+            swap(a, i, j);
+            }   
+        };
+        swap(a, low, i);
+        i += 1;
+        j -= 1;
+        qs(a,low,j);
+        qs(a,i,high);
+    };
+
+    //交换xs[i]和xs[j]
+    func swap(xs : [var Int], i : Int, j : Int){
+        let t = xs[Int.abs(i)];
+        xs[Int.abs(i)] := xs[Int.abs(j)];
+        xs[Int.abs(j)] := t;
+    };
+
+    public func qsort(arr: [Int]): async [Int]{
+        let qs = Array.thaw<Int>(arr) : [var Int];
+        quicksort(qs);
+        let ra = Array.freeze<Int>(qs) : [Int];
+        return ra;
+    };
+
+};
